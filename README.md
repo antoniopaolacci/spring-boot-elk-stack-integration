@@ -3,7 +3,7 @@ Spring Boot Logs with Elasticsearch, Logstash and Kibana.
 
 I want to send logs from a java app to an elastic search/kibana stack... 
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/log-on-elk-architecture.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/log-on-elk-architecture.png | width=100)
 
 # Configure spring boot’s log #
 
@@ -41,5 +41,5 @@ Anyhow, let’s configure Spring Boot’s log file.
 
 # Configure Logstash to understand spring boot’s log format #
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/logstash-config.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/logstash-config.png | width=100)
 
