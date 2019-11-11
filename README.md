@@ -1,9 +1,9 @@
-# spring-boot-elk-stack
+# spring-boot-elk-stack-integration
 Spring Boot Logs with Elasticsearch, Logstash and Kibana.
 
 I want to send logs from a java app to an elastic search/kibana stack... 
 
-
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/log-on-elk-architecture.png)
 
 # Configure spring boot’s log #
 
@@ -13,9 +13,8 @@ To ship logs to ElasticSearch using Logstash such as such, as configuring logbac
 Anyhow, let’s configure Spring Boot’s log file.
 
  ```
- 
- 	<springProperty scope="context" name="SPRING_APP_NAME" source="spring.application.name"/>
-	<property name="LOG_DIR" value="fs/app/logs" />
+    <springProperty scope="context" name="SPRING_APP_NAME" source="spring.application.name"/>
+    <property name="LOG_DIR" value="fs/app/logs" />
  
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${LOG_DIR}/basic-microservice-one.log</file>
@@ -37,11 +36,10 @@ Anyhow, let’s configure Spring Boot’s log file.
 			<appender-ref ref="FILE" />
 		</logger>
 	</springProfile>
-	
  ```
 
 
 # Configure Logstash to understand spring boot’s log format #
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack/blob/master/logstash-config.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/logstash-config.png)
 
