@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	
+	<springProperty scope="context" name="SPRING_APP_NAME" source="spring.application.name"/>
+	
+	<property name="LOG_DIR" value="logs" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{dd-MM-yyyy HH:mm:ss.SSS}[%5p][${SPRING_APP_NAME}][session-id=%X{session-id}][parentSpanId=%X{X-B3-ParentSpanId}][traceId=%X{X-B3-TraceId}][spanId=%X{X-B3-SpanId}][spanExport=%X{X-Span-Export}][%c{36}::%L::%M] -- %m%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>${LOG_DIR}/spring-boot-elk-stack.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{dd-MM-yyyy HH:mm:ss.SSS}[%5p][${SPRING_APP_NAME}][session-id=%X{session-id}][parentSpanId=%X{X-B3-ParentSpanId}][traceId=%X{X-B3-TraceId}][spanId=%X{X-B3-SpanId}][spanExport=%X{X-Span-Export}][%c{36}::%L::%M] -- %m%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<springProfile name="dev">
+		<logger level="info" name="it.app.example.controller" additivity="false">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="FILE" />
+		</logger>
+		<logger level="info" name="it.app.example.service" additivity="false">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="FILE" />
+		</logger>
+	</springProfile>
+
+	<springProfile name="prod">
+		<logger level="error" name="it.app.example.controller" additivity="false">
+		    <appender-ref ref="STDOUT" />
+			<appender-ref ref="FILE" />
+		</logger>
+		<logger level="error" name="it.app.example.service" additivity="false">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="FILE" />
+		</logger>
+	</springProfile>
+
+</configuration>

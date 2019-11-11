@@ -1,0 +1,2 @@
+11-11-2019 16:54:40.923[ INFO][SPRING-BOOT-ELK-STACK][session-id=][parentSpanId=][traceId=][spanId=][spanExport=][i.a.e.controller.BaseController::21::getConnectedTime] -- DEMO App received GET request for URL /test/%s
+11-11-2019 16:59:38.449[ INFO][SPRING-BOOT-ELK-STACK][session-id=][parentSpanId=][traceId=][spanId=][spanExport=][i.a.e.controller.BaseController::21::getTestValue] -- DEMO App received GET request for URL /test/%s

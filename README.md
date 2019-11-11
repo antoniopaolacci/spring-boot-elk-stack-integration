@@ -60,5 +60,5 @@ D:\kibana-6.5.2-windows-x86_64\kibana-6.5.2-windows-x86_64\bin\kibana.bat
 # Start Logstash #
 
 ```
-D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f ../config/spring-boot-elk-stack-integration.conf
+D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f D:\logstash-6.5.3\logstash-6.5.3\config\spring-boot-elk-stack-integration.conf
 ```

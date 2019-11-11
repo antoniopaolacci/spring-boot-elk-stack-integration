@@ -1,0 +1,17 @@
+
+spring:
+  profiles: 
+    active: dev
+  application:
+    name: SPRING-BOOT-ELK-STACK
+     
+#Inseriamo il numero della porta
+server:
+  port: 1200${SEQUENZA}
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,httptrace,metrics,refresh,bus-refresh,hystrix.stream
+     
