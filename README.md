@@ -83,7 +83,7 @@ http://localhost:9200/_cat/indices
 
 
 
-# Send logs, using Spring Sleuth, directly to Logstash, and display on ElasticSearch/Kibana
+# Send logs directly to Logstash, use Spring Sleuth, then display on ElasticSearch/Kibana stack
 
 
 In the <i>src/main/resources</i> directory of a java project configure the fragment on a <i>.xml</i> file. We can configure which logging fields are sending 
@@ -110,7 +110,7 @@ to Logstash by declaring tags like mdc, logLevel, message, etc. We are also appe
 </appender>
 ```
 
-Start Logstash with the following <i>.conf</i> file and with following command:
+Start Logstash with the following -f <i>.conf</i> file and with following command:
 
 ```
 	input {
@@ -133,6 +133,6 @@ Start Logstash with the following <i>.conf</i> file and with following command:
 D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f D:\logstash-6.5.3\logstash-6.5.3\config\logstash-my-microservice-architecture.conf
 ```
 
-Display on Kibana creating index:
+Search on Kibana Console and then create <b>micro-*</b> index:
 
 ![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/kibana-index.png)
