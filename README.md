@@ -1,7 +1,11 @@
 # spring-boot-elk-stack-integration
 Spring Boot Logs with Elasticsearch, Logstash and Kibana.
 
-I want to send logs from a java app to an elastic search/kibana stack... 
+Spring Cloud Sleuth: library available as a part of Spring Cloud project permit you to track subsequent microservices by adding the appropriate headers to the HTTP requests.
+(baggage-keys, propagation-keys). The library is based on the MDC (Mapped Diagnostic Context Log4j of a thread), where you can easily extract values put to context 
+and display them in the logs.
+
+I want to send my logs (produced with Spring Boot & Spring Sleuth) from a java app to an ElasticSearch/Kibana/Logstash stack. 
 
 ![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/log-on-elk-architecture.png)
 
@@ -27,7 +31,7 @@ Anyhow, let’s configure Spring Boot’s log file.
 	
 	<springProfile name="dev">
 		<root level="info">
-			<appender-ref ref="FILE" />
+			<appender-ref ref="CONSOLE" />
 		</root>	
 		<logger level="debug" name="it.app.tracing.package.example" additivity="false">
 			<appender-ref ref="FILE" />
@@ -47,11 +51,15 @@ Anyhow, let’s configure Spring Boot’s log file.
 
 # Start Elasticsearch #
 
+Depending on your installation folder:
+
 ```
 D:\elasticsearch-6.5.2\elasticsearch-6.5.2\bin\elasticsearch.bat
 ```
  
 # Start Kibana #
+
+Depending on your installation folder:
 
 ```
 D:\kibana-6.5.2-windows-x86_64\kibana-6.5.2-windows-x86_64\bin\kibana.bat
@@ -59,6 +67,72 @@ D:\kibana-6.5.2-windows-x86_64\kibana-6.5.2-windows-x86_64\bin\kibana.bat
 
 # Start Logstash #
 
+Depending on your installation folder:
+
 ```
 D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f D:\logstash-6.5.3\logstash-6.5.3\config\spring-boot-elk-stack-integration.conf
 ```
+
+# Display ElesticSearch index #
+
+```
+http://localhost:9200/_cat/indices
+```
+
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/elk-index.png)
+
+
+
+# Send logs, using Spring Sleuth, directly to Logstash, and display on ElasticSearch/Kibana
+
+
+In the <i>src/main/resources</i> directory of a java project configure the fragment on a <i>.xml</i> file. We can configure which logging fields are sending 
+to Logstash by declaring tags like mdc, logLevel, message, etc. We are also appending service name field for Elasticsearch index creation.
+
+```
+<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+	<destination>127.0.0.1:2000</destination>
+	<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+		<providers>
+			<mdc />
+			<context />
+			<logLevel />
+			<loggerName />
+			<pattern>
+				<pattern>{ "serviceName": "one" }</pattern>
+			</pattern>
+			<threadName />
+			<message />
+			<logstashMarkers />
+			<stackTrace />
+		</providers>
+	</encoder>
+</appender>
+```
+
+Start Logstash with the following <i>.conf</i> file and with following command:
+
+```
+	input {
+	    tcp {
+	        port => 2000 
+			codec => "json"
+	     }
+	 }
+
+	output {
+	    elasticsearch {
+	        hosts => ["localhost:9200"] 
+			index => "micro-%{serviceName}"
+	    }
+	}
+```
+
+
+```
+D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f D:\logstash-6.5.3\logstash-6.5.3\config\logstash-my-microservice-architecture.conf
+```
+
+Display on Kibana creating index:
+
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/kibana-index.png)

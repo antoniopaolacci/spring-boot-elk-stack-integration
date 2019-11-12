@@ -11,7 +11,9 @@ public class BaseServiceImpl implements BaseService {
 
 	public String call(int id) throws InterruptedException {
 
-		return "microservice with with id: ["+id+"] execute.";
+		log.info("Service with with id: ["+id+"] execute.");
+		
+		return "Service with with id: ["+id+"] execute.";
 
 	}
 

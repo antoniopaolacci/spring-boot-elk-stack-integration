@@ -8,7 +8,7 @@
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>
-				%d{dd-MM-yyyy HH:mm:ss.SSS}[%5p][${SPRING_APP_NAME}][session-id=%X{session-id}][parentSpanId=%X{X-B3-ParentSpanId}][traceId=%X{X-B3-TraceId}][spanId=%X{X-B3-SpanId}][spanExport=%X{X-Span-Export}][%c{36}::%L::%M] -- %m%n
+				%d{dd-MM-yyyy HH:mm:ss.SSS}[%thread][%5p][${SPRING_APP_NAME}][session-id=%X{session-id}][parentSpanId=%X{X-B3-ParentSpanId}][traceId=%X{X-B3-TraceId}][spanId=%X{X-B3-SpanId}][spanExport=%X{X-Span-Export}][%c{36}::%L::%M] -- %m%n
 			</pattern>
 		</encoder>
 	</appender>
@@ -17,12 +17,15 @@
 		<file>${LOG_DIR}/spring-boot-elk-stack.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
-				%d{dd-MM-yyyy HH:mm:ss.SSS}[%5p][${SPRING_APP_NAME}][session-id=%X{session-id}][parentSpanId=%X{X-B3-ParentSpanId}][traceId=%X{X-B3-TraceId}][spanId=%X{X-B3-SpanId}][spanExport=%X{X-Span-Export}][%c{36}::%L::%M] -- %m%n
+				%d{dd-MM-yyyy HH:mm:ss.SSS}[%thread][%5p][${SPRING_APP_NAME}][session-id=%X{session-id}][parentSpanId=%X{X-B3-ParentSpanId}][traceId=%X{X-B3-TraceId}][spanId=%X{X-B3-SpanId}][spanExport=%X{X-Span-Export}][%c{36}::%L::%M] -- %m%n
 			</Pattern>
 		</encoder>
 	</appender>
 
 	<springProfile name="dev">
+	    <root level="info">
+			<appender-ref ref="STDOUT" />
+		</root> 
 		<logger level="info" name="it.app.example.controller" additivity="false">
 			<appender-ref ref="STDOUT" />
 			<appender-ref ref="FILE" />
@@ -34,6 +37,9 @@
 	</springProfile>
 
 	<springProfile name="prod">
+	    <root level="info">
+			<appender-ref ref="STDOUT" />
+		</root> 
 		<logger level="error" name="it.app.example.controller" additivity="false">
 		    <appender-ref ref="STDOUT" />
 			<appender-ref ref="FILE" />

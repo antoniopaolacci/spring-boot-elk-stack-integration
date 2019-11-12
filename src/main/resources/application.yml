@@ -14,4 +14,3 @@ management:
     web:
       exposure:
         include: health,info,httptrace,metrics,refresh,bus-refresh,hystrix.stream
-     

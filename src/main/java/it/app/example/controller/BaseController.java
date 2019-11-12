@@ -1,5 +1,8 @@
 package it.app.example.controller;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -15,15 +18,45 @@ public class BaseController {
 
 	private static Logger log = LoggerFactory.getLogger(BaseController.class);
 	
-	@RequestMapping(value="/test/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/test/{id}", method = { RequestMethod.GET, RequestMethod.POST })
 	public String getTestValue(@PathVariable("id") Integer id, HttpServletRequest httpRequest) throws InterruptedException {
 
-		log.info("DEMO App received GET request for URL /test/%s", id);
+		log.info("DEMO app received GET request for URL /test/"+id);
 		
-		String result = "DEMO App received GET request for URL /test/"+id;
+		String result = "DEMO app received GET request for URL /test/"+id;
 		
 		return result; 
 
-	} //end method
+	} 
+	
+	@RequestMapping(value = "/exception", method= { RequestMethod.GET, RequestMethod.POST })
+	public String exception() {
+		
+		String response = "";
+		
+		try {
+			
+			throw new Exception("Exception has occured... ");
+		
+		} catch (Exception e) {
+			
+			log.error("Error: ", e);
 
-}
+			StringWriter sw = new StringWriter();
+			
+			PrintWriter pw = new PrintWriter(sw);
+			
+			e.printStackTrace(pw);
+			
+			String stackTrace = sw.toString();
+			
+			log.error("Stack trace: ["+stackTrace+"]");
+			
+			response = stackTrace;
+		
+		}
+
+		return response;
+	}
+
+} //end class
