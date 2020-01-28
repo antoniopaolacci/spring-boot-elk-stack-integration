@@ -4,7 +4,7 @@ and display them in the logs.
 
 I want to send my logs (produced with Spring Boot & upgraded by Spring Sleuth) from a java application to an ElasticSearch/Logstash/Kibana stack. 
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/log-on-elk-architecture.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/img/log-on-elk-architecture.png)
 
 # Configure spring boot's log4j #
 
@@ -40,7 +40,7 @@ There are obviously other ways to achieve the same thing as well i.e. Anyhow, fr
 
 # Configure Logstash to understand spring boot's log format #
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/logstash-config.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/img/logstash-config.png)
 
 
 # Start Elasticsearch #
@@ -73,7 +73,7 @@ D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f D:\logstash-6.5.3\logstash-
 http://localhost:9200/_cat/indices
 ```
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/elk-index.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/img/elk-index.png)
 
 
 # Send logs directly to Logstash, use Spring Sleuth, then display on ElasticSearch/Kibana stack
@@ -129,10 +129,10 @@ D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f D:\logstash-6.5.3\logstash-
 
 Search on Kibana Console and then create <b>micro-*</b> index:
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/kibana-index.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/img/kibana-index.png)
 
 Monitor all the Microservices with Kibana and Sleuth/custom MDC key:
 
-![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/monitoring-architecture-with-kibana.png)
+![image](https://github.com/antoniopaolacci/spring-boot-elk-stack-integration/blob/master/img/monitoring-architecture-with-kibana.png)
 
 
