@@ -11,7 +11,7 @@ I want to send my logs (produced with Spring Boot & upgraded by Spring Sleuth) f
 To have Logstash to ship logs to ElasticSearch then we need to have our application to store logs in a file. 
 There are obviously other ways to achieve the same thing as well i.e. Anyhow, from first, let's configure Spring Boot's log file.
 
- ```
+ ```xml
 <springProperty scope="context" name="SPRING_APP_NAME" source="spring.application.name"/>
 <property name="LOG_DIR" value="fs/app/logs" />
  
@@ -47,7 +47,7 @@ There are obviously other ways to achieve the same thing as well i.e. Anyhow, fr
 
 Change the following start cmd depending on your installation folder:
 
-```
+```bat
 D:\elasticsearch-6.5.2\elasticsearch-6.5.2\bin\elasticsearch.bat
 ```
  
@@ -55,7 +55,7 @@ D:\elasticsearch-6.5.2\elasticsearch-6.5.2\bin\elasticsearch.bat
 
 Change the following start cmd depending on your installation folder:
 
-```
+```bat
 D:\kibana-6.5.2-windows-x86_64\kibana-6.5.2-windows-x86_64\bin\kibana.bat
 ```
 
@@ -63,7 +63,7 @@ D:\kibana-6.5.2-windows-x86_64\kibana-6.5.2-windows-x86_64\bin\kibana.bat
 
 Change the following start cmd depending on your installation folder:
 
-```
+```bat
 D:\logstash-6.5.3\logstash-6.5.3\bin\logstash.bat -f D:\logstash-6.5.3\logstash-6.5.3\config\spring-boot-elk-stack-integration.conf
 ```
 
@@ -83,7 +83,7 @@ To ship logs to ElasticSearch using Logstash such as such, as configuring <i>log
 In the <i>src/main/resources</i> directory of a java project configure the fragment on a <i>.xml</i> file. We can configure which logging fields are sending 
 to Logstash by declaring tags like mdc, logLevel, message, etc. We are also appending service name field for Elasticsearch index creation.
 
-```
+```xml
 <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
 	<destination>127.0.0.1:2000</destination>
 	<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
@@ -106,7 +106,7 @@ to Logstash by declaring tags like mdc, logLevel, message, etc. We are also appe
 
 Start Logstash with the following -f <i>.conf</i> file and with the subsequent command:
 
-```
+```json
 	input {
 	    tcp {
 	        port => 2000 
