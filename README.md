@@ -106,7 +106,7 @@ to Logstash by declaring tags like mdc, logLevel, message, etc. We are also appe
 
 Start Logstash with the following -f <i>.conf</i> file and with the subsequent command:
 
-```json
+```js
 	input {
 	    tcp {
 	        port => 2000 
